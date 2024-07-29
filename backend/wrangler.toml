@@ -2,8 +2,8 @@ name = "medium-blog-app"
 compatibility_date = "2023-12-01"
 
 [vars]
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNGRiN2U1YzMtYTNkOC00YjA3LWE1NDktMGM2OWY2ZDMyMTRjIiwidGVuYW50X2lkIjoiZGVlMmMzNGI0YTczYTA4YzZlMGQzNGU3NGVlMDljOWNlZmI0Y2Y2ZjEzNDFhYjJhYmVmMzQwMmMwOTEwYjEwOSIsImludGVybmFsX3NlY3JldCI6ImY0NTFjNTkyLTg3NTQtNDI1NC04YWI2LWQ4NzhjMjVhYjE0YSJ9.cm-VFIdUhNjnXPxvM5fy5DQRdFBUXwiL453nD9pNWA8"
-JWT_SECRET = "dhruv34133"
+DATABASE_URL=""
+JWT_SECRET = ""
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
