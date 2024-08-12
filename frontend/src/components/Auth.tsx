@@ -14,15 +14,25 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
     async function sendRequest() {
         try {
-            const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
+            console.log('Sending request with inputs:', postInputs); // Log inputs for debugging
+            const response = await axios.post(
+                `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+                postInputs,
+                {
+                    headers: {
+                        'Content-Type': 'application/json', // Ensure content type is set
+                    }
+                }
+            );
             const jwt = response.data;
             localStorage.setItem("token", jwt);
             navigate("/blogs");
-        } catch(e) {
-            alert("Error while signing up")
-            // alert the user here that the request failed
+        } catch (e) {
+            console.error('Sign-up error:', e); // Log detailed error information
+            alert("Error while signing up");
         }
     }
+    
     
     return <div className="h-screen flex justify-center flex-col">
         <div className="flex justify-center">
