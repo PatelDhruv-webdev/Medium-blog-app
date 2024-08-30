@@ -24,8 +24,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     }
                 }
             );
-            const jwt = response.data;
-            localStorage.setItem("token", jwt);
+            const { token } = response.data;
+            localStorage.setItem("token", token);
             navigate("/blogs");
         } catch (e) {
             console.error('Sign-up error:', e); // Log detailed error information

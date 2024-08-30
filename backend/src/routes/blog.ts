@@ -13,25 +13,31 @@ export const blogRouter = new Hono<{
         userId: string;
     }
 }>();
-
 blogRouter.use("/*", async (c, next) => {
     const authHeader = c.req.header("authorization") || "";
+    console.log("Authorization Header:", authHeader);  // Log the Authorization header
+    
     try {
-        const user = await verify(authHeader, c.env.JWT_SECRET);
+        const token = authHeader.split(' ')[1];
+        const user = await verify(token, c.env.JWT_SECRET);
+        console.log("Verified User:", user);  // Log the verified user object
+        
         if (user) {
             c.set("userId", user.id);
+            console.log("User ID set in context:", user.id);  // Log the user ID set in context
             await next();
         } else {
             c.status(403);
             return c.json({
                 message: "You are not logged in"
-            })
+            });
         }
     } catch(e) {
+        console.error("JWT Verification Error:", e);  // Log any JWT verification errors
         c.status(403);
         return c.json({
             message: "You are not logged in"
-        })
+        });
     }
 });
 

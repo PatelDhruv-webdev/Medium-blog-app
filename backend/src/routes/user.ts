@@ -11,6 +11,7 @@ export const userRouter = new Hono<{
     }
 }>();
 
+// Sign-up Route
 userRouter.post('/signup', async (c) => {
     console.log('Request Headers:', c.req.header); // Log headers
     console.log('Request Method:', c.req.method);  // Log method
@@ -68,8 +69,8 @@ userRouter.post('/signup', async (c) => {
 userRouter.post('/signin', async (c) => {
     try {
         const body = await c.req.json();
-        console.log('Signin Request Body:', body); // Log body
-
+        console.log('Signin Request Body:', body);  // Log the request body
+        
         const { success, error } = signinInput.safeParse(body);
         if (!success) {
             console.error('Input validation failed:', error.format());
@@ -88,23 +89,23 @@ userRouter.post('/signin', async (c) => {
         const user = await prisma.user.findFirst({
             where: {
                 username: body.username,
-                password: body.password, // Make sure to hash and compare passwords
+                password: body.password,  // Ensure passwords are hashed and compared
             }
         });
 
         if (!user) {
-            console.error('Incorrect credentials');
+            console.error('Incorrect credentials provided');
             c.status(403);
             return c.json({ message: "Incorrect credentials" });
         }
 
         const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-        console.log('User signed in:', user);
+        console.log('User signed in successfully:', user);  // Log the signed-in user details
 
         return c.json({ token: jwt });
 
     } catch (e) {
-        console.error('Error during signin process:', e);
+        console.error('Error during signin process:', e);  // Log any errors during the sign-in process
         c.status(500);
         return c.json({ message: 'Internal server error'});
     }
